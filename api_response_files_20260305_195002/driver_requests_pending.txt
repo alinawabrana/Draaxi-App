@@ -1,0 +1,22 @@
+NAME: driver_requests_pending
+ROLE_CONTEXT: driver
+REQUEST: GET https://draaxi.com/api/driver/requests/pending
+REQUEST_HEADERS: Accept=application/json, Authorization=Bearer <token>
+REQUEST_BODY: <none>
+----- RESPONSE BEGIN -----
+HTTP/2 401 
+date: Thu, 05 Mar 2026 14:50:34 GMT
+content-type: application/json
+vary: Accept-Encoding
+x-powered-by: PHP/8.2.29
+cache-control: no-cache, private
+access-control-allow-origin: *
+platform: hostinger
+panel: hpanel
+content-security-policy: upgrade-insecure-requests
+server: hcdn
+alt-svc: h3=":443"; ma=86400
+x-hcdn-request-id: 33829facac1366a2ce0d901a2f559fe5-bos-edge1
+
+{"message":"Unauthenticated."}
+----- RESPONSE END -----

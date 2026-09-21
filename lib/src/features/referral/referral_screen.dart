@@ -153,7 +153,7 @@ class ReferralScreen extends StatelessWidget {
               size: 24,
               color: isDark
                   ? const Color(0xFFD0D0D0)
-                  : const Color(0xFFC2CCDE).withOpacity(0.25),
+                  : const Color(0x40C2CCDE),
             ),
           ),
         ],
@@ -161,4 +161,3 @@ class ReferralScreen extends StatelessWidget {
     );
   }
 }
-

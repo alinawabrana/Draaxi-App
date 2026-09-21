@@ -334,27 +334,31 @@ class _AddPaymentMethodScreenState extends State<AddPaymentMethodScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
               children: [
-                // Card number or name
                 Text(
                   number,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     fontSize: 14,
+                    height: 1.15,
                     fontWeight: FontWeight.w500,
                     color: isDark ? Colors.white : const Color(0xFF121212),
                     fontFamily: 'Poppins',
                   ),
                 ),
-                
-                const SizedBox(height: 2),
-                
-                // Expiry date
                 Text(
                   'Expires: 12/26',
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     fontSize: 12,
+                    height: 1.15,
                     fontWeight: FontWeight.w400,
-                    color: isDark ? const Color(0xFFD0D0D0) : const Color(0xFF5A5A5A),
+                    color: isDark
+                        ? const Color(0xFFD0D0D0)
+                        : const Color(0xFF5A5A5A),
                     fontFamily: 'Poppins',
                   ),
                 ),

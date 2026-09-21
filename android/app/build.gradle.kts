@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     id("kotlin-android")
@@ -28,6 +30,24 @@ android {
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
+
+        val localProperties = Properties().apply {
+            val file = rootProject.file("local.properties")
+            if (file.exists()) {
+                file.inputStream().use { load(it) }
+            }
+        }
+        val mapsApiKey =
+            (project.findProperty("MAPS_API_KEY") as String?)
+                ?: localProperties.getProperty("MAPS_API_KEY")
+                ?: ""
+        resValue("string", "google_maps_key", mapsApiKey)
+
+        val placesApiKey =
+            (project.findProperty("PLACES_API_KEY") as String?)
+                ?: localProperties.getProperty("PLACES_API_KEY")
+                ?: mapsApiKey
+        resValue("string", "google_places_key", placesApiKey)
     }
 
     buildTypes {

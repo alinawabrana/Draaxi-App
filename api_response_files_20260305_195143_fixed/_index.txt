@@ -1,0 +1,37 @@
+API Response Files Index
+Generated: 2026-03-05 19:52:32 PKT
+Directory: /Users/alinawab/Flutter Tasks/draaxi/api_response_files_20260305_195143_fixed
+
+_index.txt | n/a
+auth_login_driver.txt | 200
+auth_login_empty.txt | 422
+auth_login_rider.txt | 200
+auth_reset_password.txt | 422
+auth_send_forgot_otp.txt | 422
+auth_signup.txt | 422
+auth_verify_forgot_otp.txt | 422
+auth_verify_signup_otp.txt | 422
+driver_location.txt | 422
+driver_request_accept.txt | 404
+driver_request_decline.txt | 404
+driver_request_offer_fare.txt | 422
+driver_requests_pending.txt | 200
+driver_ride_begin_trip.txt | 404
+driver_ride_cancel.txt | 404
+driver_ride_complete.txt | 404
+driver_ride_current.txt | 404
+driver_ride_start.txt | 404
+driver_status_get.txt | 200
+driver_status_post.txt | 422
+logout_driver.txt | 500
+logout_rider.txt | 500
+rider_drivers_nearby.txt | 403
+rider_location.txt | 403
+rider_location_current.txt | 403
+rides_cancel.txt | 404
+rides_offer_accept.txt | 404
+rides_offer_decline.txt | 404
+rides_quote.txt | 404
+rides_request_status.txt | 404
+rides_requests_create.txt | 404
+user_profile.txt | 200

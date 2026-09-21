@@ -1,0 +1,22 @@
+NAME: auth_signup
+ROLE_CONTEXT: public
+REQUEST: POST https://draaxi.com/api/auth/signup
+REQUEST_HEADERS: Accept=application/json, Content-Type=application/json
+REQUEST_BODY: {}
+----- RESPONSE BEGIN -----
+HTTP/2 422 
+date: Thu, 05 Mar 2026 14:51:52 GMT
+content-type: application/json
+vary: Accept-Encoding
+x-powered-by: PHP/8.2.29
+cache-control: no-cache, private
+access-control-allow-origin: *
+platform: hostinger
+panel: hpanel
+content-security-policy: upgrade-insecure-requests
+server: hcdn
+alt-svc: h3=":443"; ma=86400
+x-hcdn-request-id: 8afa52b5a2d940c0e0d0bf8761c99c1d-bos-edge3
+
+{"name":["The name field is required."],"email":["The email field is required."],"phone":["The phone field is required."],"gender":["The gender field is required."],"password":["The password field is required."],"role":["The role field is required."]}
+----- RESPONSE END -----

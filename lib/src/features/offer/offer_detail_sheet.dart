@@ -132,8 +132,8 @@ class OfferDetailSheet extends StatelessWidget {
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,
                           colors: [
-                            const Color(0xFFFFF0BF).withOpacity(0.64),
-                            const Color(0xFFF1BD0E).withOpacity(0.64),
+                            const Color(0xA3FFF0BF),
+                            const Color(0xA3F1BD0E),
                           ],
                           stops: const [0.3375, 1.0],
                         ),
@@ -267,4 +267,3 @@ class DashedLinePainter extends CustomPainter {
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
-

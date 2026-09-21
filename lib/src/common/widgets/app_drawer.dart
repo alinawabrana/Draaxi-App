@@ -94,13 +94,13 @@ class _AppDrawerState extends ConsumerState<AppDrawer> {
       width: 250,
       backgroundColor: isDark ? const Color(0xFF1F212A) : Colors.white,
       elevation: isDark ? 21 : 0,
-      shadowColor: isDark ? Colors.white.withOpacity(0.25) : null,
+      shadowColor: isDark ? const Color(0x40FFFFFF) : null,
       child: Container(
         decoration: isDark
             ? BoxDecoration(
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.white.withOpacity(0.25),
+                    color: const Color(0x40FFFFFF),
                     offset: const Offset(0, 4),
                     blurRadius: 21,
                     spreadRadius: 0,
@@ -365,4 +365,3 @@ class _AppDrawerState extends ConsumerState<AppDrawer> {
     );
   }
 }
-

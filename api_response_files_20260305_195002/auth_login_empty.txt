@@ -1,0 +1,22 @@
+NAME: auth_login_empty
+ROLE_CONTEXT: public
+REQUEST: POST https://draaxi.com/api/auth/login
+REQUEST_HEADERS: Accept=application/json, Content-Type=application/json
+REQUEST_BODY: {}
+----- RESPONSE BEGIN -----
+HTTP/2 422 
+date: Thu, 05 Mar 2026 14:50:10 GMT
+content-type: application/json
+vary: Accept-Encoding
+x-powered-by: PHP/8.2.29
+cache-control: no-cache, private
+access-control-allow-origin: *
+platform: hostinger
+panel: hpanel
+content-security-policy: upgrade-insecure-requests
+server: hcdn
+alt-svc: h3=":443"; ma=86400
+x-hcdn-request-id: 39c966c75b0f0f98fb4a9ed04cd1bff8-bos-edge5
+
+{"identifier":["The identifier field is required."],"password":["The password field is required."]}
+----- RESPONSE END -----

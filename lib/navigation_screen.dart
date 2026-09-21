@@ -89,7 +89,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
           ),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.05),
+              color: const Color(0x0D000000),
               blurRadius: 10,
               offset: const Offset(0, -2),
             ),
@@ -131,7 +131,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
     // Colors for non-selected items
     final unselectedIconFillColor = isDark
         ? const Color(0xFFD0D0D0)
-        : const Color(0xFFC2CCDE).withOpacity(0.25);
+        : const Color(0x40C2CCDE);
     final unselectedIconBorderColor = isDark
         ? const Color(0xFFD0D0D0)
         : const Color(0xFF414141);

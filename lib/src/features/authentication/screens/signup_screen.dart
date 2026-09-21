@@ -435,6 +435,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
             token: token,
           );
 
+      if (!mounted) return;
       context.goNamed(ARouter.otpVerification);
     } on ApiException catch (e) {
       _showSnackBar(e.message);
@@ -472,4 +473,3 @@ class _PhoneRule {
       ? 'Phone number must be exactly $min digits'
       : 'Phone number must be between $min and $max digits';
 }
-

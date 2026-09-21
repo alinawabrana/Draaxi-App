@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class Country {
   final String name;
   final String code;

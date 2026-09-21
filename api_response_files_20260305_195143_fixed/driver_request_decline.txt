@@ -1,0 +1,22 @@
+NAME: driver_request_decline
+ROLE_CONTEXT: driver
+REQUEST: POST https://draaxi.com/api/driver/requests/1/decline
+REQUEST_HEADERS: Accept=application/json, Authorization=Bearer <token>, Content-Type=application/json
+REQUEST_BODY: {}
+----- RESPONSE BEGIN -----
+HTTP/2 404 
+date: Thu, 05 Mar 2026 14:52:24 GMT
+content-type: application/json
+vary: Accept-Encoding
+x-powered-by: PHP/8.2.29
+cache-control: no-cache, private
+access-control-allow-origin: *
+platform: hostinger
+panel: hpanel
+content-security-policy: upgrade-insecure-requests
+server: hcdn
+alt-svc: h3=":443"; ma=86400
+x-hcdn-request-id: 9e80fbcba200d3f176bc64030fbc1df0-bos-edge1
+
+{"success":false,"message":"Offer not found"}
+----- RESPONSE END -----

@@ -28,7 +28,7 @@ class DropdownFormField extends StatelessWidget {
         ConstrainedBox(
           constraints: const BoxConstraints(minHeight: 60),
           child: DropdownButtonFormField<String>(
-            value: value,
+            initialValue: value,
             items: items,
             style: textTheme.bodyMedium,
             onChanged: onChanged,

@@ -158,7 +158,7 @@ class _AddressScreenState extends State<AddressScreen> {
         borderRadius: BorderRadius.circular(8),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF000000).withOpacity(0.04),
+            color: const Color(0x0A000000),
             blurRadius: 17,
             offset: const Offset(0, 0),
           ),
@@ -456,4 +456,3 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
     );
   }
 }
-

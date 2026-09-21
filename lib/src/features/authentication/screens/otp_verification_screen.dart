@@ -250,7 +250,7 @@ class _OtpVerificationScreenState extends ConsumerState<OtpVerificationScreen> {
           return;
         }
         await authRepository.verifySignupOtp(otp: otp, token: token);
-        // After successful signup OTP verification, navigate to sign in
+        if (!mounted) return;
         context.goNamed(ARouter.signIn);
       } else if (otpState.type == OtpVerificationType.forgotPassword) {
         // Get token from state
@@ -260,10 +260,11 @@ class _OtpVerificationScreenState extends ConsumerState<OtpVerificationScreen> {
           return;
         }
         await authRepository.verifyForgotOtp(otp: otp, token: token);
-        // After successful forgot password OTP verification, navigate to reset password screen
+        if (!mounted) return;
         context.goNamed(ARouter.setNewPassword);
       } else {
         await authRepository.verifyOtp(otp: otp);
+        if (!mounted) return;
         context.goNamed(ARouter.setPassword);
       }
     } on ApiException catch (e) {

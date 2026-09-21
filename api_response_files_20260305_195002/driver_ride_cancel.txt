@@ -1,0 +1,22 @@
+NAME: driver_ride_cancel
+ROLE_CONTEXT: driver
+REQUEST: POST https://draaxi.com/api/driver/rides/1/cancel
+REQUEST_HEADERS: Accept=application/json, Authorization=Bearer <token>, Content-Type=application/json
+REQUEST_BODY: {}
+----- RESPONSE BEGIN -----
+HTTP/2 401 
+date: Thu, 05 Mar 2026 14:50:44 GMT
+content-type: application/json
+vary: Accept-Encoding
+x-powered-by: PHP/8.2.29
+cache-control: no-cache, private
+access-control-allow-origin: *
+platform: hostinger
+panel: hpanel
+content-security-policy: upgrade-insecure-requests
+server: hcdn
+alt-svc: h3=":443"; ma=86400
+x-hcdn-request-id: f15105b60a480eb7474a40c5bce00a6f-bos-edge2
+
+{"message":"Unauthenticated."}
+----- RESPONSE END -----

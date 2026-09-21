@@ -1,17 +1,19 @@
 import 'package:draaxi/src/common/widgets/primary_button.dart';
 import 'package:draaxi/src/router/router.dart';
+import 'package:draaxi/src/features/wallet/wallet_provider.dart';
 import 'package:draaxi/utils/constant/texts.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-class AddMoneyScreen extends StatefulWidget {
+class AddMoneyScreen extends ConsumerStatefulWidget {
   const AddMoneyScreen({super.key});
 
   @override
-  State<AddMoneyScreen> createState() => _AddMoneyScreenState();
+  ConsumerState<AddMoneyScreen> createState() => _AddMoneyScreenState();
 }
 
-class _AddMoneyScreenState extends State<AddMoneyScreen> {
+class _AddMoneyScreenState extends ConsumerState<AddMoneyScreen> {
   final TextEditingController _amountController = TextEditingController();
   int? _selectedPaymentMethodIndex;
 
@@ -48,6 +50,14 @@ class _AddMoneyScreenState extends State<AddMoneyScreen> {
   ];
 
   @override
+  void initState() {
+    super.initState();
+    Future.microtask(() {
+      ref.read(walletProvider.notifier).ensureInitialized();
+    });
+  }
+
+  @override
   void dispose() {
     _amountController.dispose();
     super.dispose();
@@ -67,9 +77,9 @@ class _AddMoneyScreenState extends State<AddMoneyScreen> {
             children: [
               // Top navigation bar
               _buildTopBar(isDark, textTheme),
-              
+
               const SizedBox(height: 39),
-              
+
               // Amount input field
               TextField(
                 controller: _amountController,
@@ -117,9 +127,9 @@ class _AddMoneyScreenState extends State<AddMoneyScreen> {
                   ),
                 ),
               ),
-              
+
               const SizedBox(height: 8),
-              
+
               // Add Payment Method button
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -138,16 +148,18 @@ class _AddMoneyScreenState extends State<AddMoneyScreen> {
                       style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
-                        color: isDark ? const Color(0xFF304FFE) : const Color(0xFF304FFE),
+                        color: isDark
+                            ? const Color(0xFF304FFE)
+                            : const Color(0xFF304FFE),
                         fontFamily: 'Poppins',
                       ),
                     ),
                   ),
                 ],
               ),
-              
+
               const SizedBox(height: 30),
-              
+
               // Select Payment Method title
               Text(
                 'Select Payment Method',
@@ -158,14 +170,15 @@ class _AddMoneyScreenState extends State<AddMoneyScreen> {
                   fontFamily: 'Poppins',
                 ),
               ),
-              
+
               const SizedBox(height: 30),
-              
+
               // Payment method cards
               Expanded(
                 child: ListView.separated(
                   itemCount: _paymentMethods.length,
-                  separatorBuilder: (context, index) => const SizedBox(height: 16),
+                  separatorBuilder: (context, index) =>
+                      const SizedBox(height: 16),
                   itemBuilder: (context, index) {
                     return _buildPaymentMethodCard(
                       _paymentMethods[index],
@@ -175,21 +188,29 @@ class _AddMoneyScreenState extends State<AddMoneyScreen> {
                   },
                 ),
               ),
-              
+
               const SizedBox(height: 20),
-              
+
               // Confirm button
               PrimaryButton(
                 text: 'Confirm',
-                onPressed: () {
-                  if (_selectedPaymentMethodIndex != null &&
-                      _amountController.text.isNotEmpty) {
-                    // TODO: Implement confirm functionality
+                onPressed: () async {
+                  final amount =
+                      double.tryParse(_amountController.text.trim()) ?? 0;
+                  if (_selectedPaymentMethodIndex != null && amount > 0) {
+                    final selectedMethod =
+                        _paymentMethods[_selectedPaymentMethodIndex!]['name']
+                            .toString();
+                    await ref
+                        .read(walletProvider.notifier)
+                        .addMoney(amount, source: '$selectedMethod top-up');
+                    if (!context.mounted) return;
                     context.pop();
                   }
                 },
-                enabled: _selectedPaymentMethodIndex != null &&
-                    _amountController.text.isNotEmpty,
+                enabled:
+                    _selectedPaymentMethodIndex != null &&
+                    (double.tryParse(_amountController.text.trim()) ?? 0) > 0,
               ),
             ],
           ),
@@ -213,7 +234,9 @@ class _AddMoneyScreenState extends State<AddMoneyScreen> {
                 child: Icon(
                   Icons.arrow_back_ios,
                   size: 8.5,
-                  color: isDark ? const Color(0xFFD0D0D0) : const Color(0xFF2A2A2A),
+                  color: isDark
+                      ? const Color(0xFFD0D0D0)
+                      : const Color(0xFF2A2A2A),
                 ),
               ),
               const SizedBox(width: 4),
@@ -222,14 +245,16 @@ class _AddMoneyScreenState extends State<AddMoneyScreen> {
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w400,
-                  color: isDark ? const Color(0xFFD0D0D0) : const Color(0xFF414141),
+                  color: isDark
+                      ? const Color(0xFFD0D0D0)
+                      : const Color(0xFF414141),
                   fontFamily: 'Poppins',
                 ),
               ),
             ],
           ),
         ),
-        
+
         // Title
         Text(
           'Amount',
@@ -240,7 +265,7 @@ class _AddMoneyScreenState extends State<AddMoneyScreen> {
             fontFamily: 'Poppins',
           ),
         ),
-        
+
         // Spacer to balance
         const SizedBox(width: 80),
       ],
@@ -253,7 +278,7 @@ class _AddMoneyScreenState extends State<AddMoneyScreen> {
     bool isDark,
   ) {
     final isSelected = _selectedPaymentMethodIndex == index;
-    
+
     return GestureDetector(
       onTap: () {
         setState(() {
@@ -270,7 +295,7 @@ class _AddMoneyScreenState extends State<AddMoneyScreen> {
             border: Border.all(
               color: isSelected
                   ? const Color(0xFFFEC400)
-                  : const Color(0xFFFEC400).withOpacity(0.3),
+                  : const Color(0x4DFEC400),
               width: 1,
             ),
           ),
@@ -291,35 +316,39 @@ class _AddMoneyScreenState extends State<AddMoneyScreen> {
                   color: isDark ? Colors.white : const Color(0xFF414141),
                 ),
               ),
-              
+
               const SizedBox(width: 13),
-              
+
               // Payment method details
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
                   children: [
-                    // Card number or name
                     Text(
                       paymentMethod['number'] as String,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                         fontSize: 14,
+                        height: 1.15,
                         fontWeight: FontWeight.w500,
                         color: isDark ? Colors.white : const Color(0xFF121212),
                         fontFamily: 'Poppins',
                       ),
                     ),
-                    
-                    const SizedBox(height: 2),
-                    
-                    // Expiry date
                     Text(
                       'Expires: ${paymentMethod['expiry']}',
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                         fontSize: 12,
+                        height: 1.15,
                         fontWeight: FontWeight.w400,
-                        color: isDark ? const Color(0xFFD0D0D0) : const Color(0xFF5A5A5A),
+                        color: isDark
+                            ? const Color(0xFFD0D0D0)
+                            : const Color(0xFF5A5A5A),
                         fontFamily: 'Poppins',
                       ),
                     ),
@@ -333,4 +362,3 @@ class _AddMoneyScreenState extends State<AddMoneyScreen> {
     );
   }
 }
-

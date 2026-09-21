@@ -1,0 +1,23 @@
+NAME: auth_login_driver
+REQUEST: POST https://draaxi.com/api/auth/login
+REQUEST_HEADERS: Accept=application/json, Content-Type=application/json
+REQUEST_BODY: {"identifier":"alihammad9979@gmail.com","password":"***"}
+----- RESPONSE BEGIN -----
+HTTP/2 200 
+date: Thu, 05 Mar 2026 14:51:51 GMT
+content-type: application/json
+vary: Accept-Encoding
+x-powered-by: PHP/8.2.29
+cache-control: no-cache, private
+access-control-allow-origin: *
+platform: hostinger
+panel: hpanel
+content-security-policy: upgrade-insecure-requests
+server: hcdn
+alt-svc: h3=":443"; ma=86400
+x-hcdn-request-id: d0b144ba90756a7a7b35c520c8747b46-bos-edge4
+x-hcdn-cache-status: DYNAMIC
+x-hcdn-upstream-rt: 0.505
+
+{"message":"Login successful","token":"75|uymbUcmnOP2OqOeeRPmn8tRA3sBMGu1dQGgFe5Ug8ab495e9","user":{"id":7,"name":"Ali Hammad Rana","email":"alihammad9979@gmail.com","phone":"+923066300707","email_verified_at":null,"role":"driver","created_at":"2025-11-18T21:01:14.000000Z","updated_at":"2025-11-18T21:08:03.000000Z"}}
+----- RESPONSE END -----

@@ -1,0 +1,22 @@
+NAME: driver_request_offer_fare
+ROLE_CONTEXT: driver
+REQUEST: POST https://draaxi.com/api/driver/requests/1/offer-fare
+REQUEST_HEADERS: Accept=application/json, Authorization=Bearer <token>, Content-Type=application/json
+REQUEST_BODY: {}
+----- RESPONSE BEGIN -----
+HTTP/2 401 
+date: Thu, 05 Mar 2026 14:50:38 GMT
+content-type: application/json
+vary: Accept-Encoding
+x-powered-by: PHP/8.2.29
+cache-control: no-cache, private
+access-control-allow-origin: *
+platform: hostinger
+panel: hpanel
+content-security-policy: upgrade-insecure-requests
+server: hcdn
+alt-svc: h3=":443"; ma=86400
+x-hcdn-request-id: af7ddd9043a226d6e7e6871baae63849-bos-edge5
+
+{"message":"Unauthenticated."}
+----- RESPONSE END -----
