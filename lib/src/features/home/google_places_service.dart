@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
 
-import 'package:geolocator/geolocator.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -13,19 +13,12 @@ class GoogleApiKeys {
   final String mapsApiKey;
   final String placesApiKey;
 
-  static const MethodChannel _channel = MethodChannel(
-    'com.example.draaxi/google_api_keys',
-  );
-
-  static Future<GoogleApiKeys> load() async {
-    if (!(Platform.isAndroid || Platform.isIOS)) {
-      return const GoogleApiKeys(mapsApiKey: '', placesApiKey: '');
-    }
-
-    final dynamic raw = await _channel.invokeMethod('getKeys');
-    final map = Map<String, dynamic>.from(raw as Map);
-    final mapsApiKey = (map['mapsApiKey'] as String?) ?? '';
-    final placesApiKey = (map['placesApiKey'] as String?) ?? mapsApiKey;
+  static GoogleApiKeys load() {
+    final mapsApiKey = dotenv.env['GOOGLE_MAPS_API_KEY']?.trim() ?? '';
+    final placesApiKey =
+        dotenv.env['GOOGLE_PLACES_API_KEY']?.trim().isNotEmpty == true
+        ? dotenv.env['GOOGLE_PLACES_API_KEY']!.trim()
+        : mapsApiKey;
     return GoogleApiKeys(mapsApiKey: mapsApiKey, placesApiKey: placesApiKey);
   }
 }
@@ -81,7 +74,7 @@ class GooglePlacesService {
   final http.Client _client;
 
   static Future<GooglePlacesService> create() async {
-    final keys = await GoogleApiKeys.load();
+    final keys = GoogleApiKeys.load();
     return GooglePlacesService(apiKey: keys.placesApiKey);
   }
 
@@ -207,7 +200,7 @@ class GoogleDirectionsService {
   final http.Client _client;
 
   static Future<GoogleDirectionsService> create() async {
-    final keys = await GoogleApiKeys.load();
+    final keys = GoogleApiKeys.load();
     return GoogleDirectionsService(apiKey: keys.mapsApiKey);
   }
 

@@ -7,6 +7,26 @@ plugins {
     id("dev.flutter.flutter-gradle-plugin")
 }
 
+fun loadDotEnv(file: java.io.File): Properties {
+    val props = Properties()
+    if (!file.exists()) return props
+    file.forEachLine { raw ->
+        val line = raw.trim()
+        if (line.isEmpty() || line.startsWith("#")) return@forEachLine
+        val idx = line.indexOf('=')
+        if (idx <= 0) return@forEachLine
+        val key = line.substring(0, idx).trim()
+        var value = line.substring(idx + 1).trim()
+        if ((value.startsWith("\"") && value.endsWith("\"")) ||
+            (value.startsWith("'") && value.endsWith("'"))
+        ) {
+            value = value.substring(1, value.length - 1)
+        }
+        props.setProperty(key, value)
+    }
+    return props
+}
+
 android {
     namespace = "com.example.draaxi"
     compileSdk = flutter.compileSdkVersion
@@ -31,20 +51,24 @@ android {
         versionCode = flutter.versionCode
         versionName = flutter.versionName
 
+        val env = loadDotEnv(rootProject.file("../.env"))
         val localProperties = Properties().apply {
             val file = rootProject.file("local.properties")
             if (file.exists()) {
                 file.inputStream().use { load(it) }
             }
         }
+
         val mapsApiKey =
             (project.findProperty("MAPS_API_KEY") as String?)
+                ?: env.getProperty("GOOGLE_MAPS_API_KEY")
                 ?: localProperties.getProperty("MAPS_API_KEY")
                 ?: ""
         resValue("string", "google_maps_key", mapsApiKey)
 
         val placesApiKey =
             (project.findProperty("PLACES_API_KEY") as String?)
+                ?: env.getProperty("GOOGLE_PLACES_API_KEY")
                 ?: localProperties.getProperty("PLACES_API_KEY")
                 ?: mapsApiKey
         resValue("string", "google_places_key", placesApiKey)
